@@ -14,25 +14,45 @@ A skill is a directory containing a `SKILL.md` file plus any supporting code, te
 
 ## Install a skill
 
-Clone the repo somewhere stable, then symlink the skill directory into `~/.claude/skills/`:
+Clone the repo somewhere stable, then run the installer.
+
+**macOS / Linux**
 
 ```bash
 git clone git@github.com:sirhco/agent-skills.git ~/code/agent-skills
-mkdir -p ~/.claude/skills
-ln -s ~/code/agent-skills/skills/pptx-create ~/.claude/skills/pptx-create
+cd ~/code/agent-skills
+./install.sh --list                   # show available skills
+./install.sh --skill pptx-create      # install one
+./install.sh --all                    # install everything
+```
+
+**Windows (PowerShell)**
+
+```powershell
+git clone git@github.com:sirhco/agent-skills.git $HOME\code\agent-skills
+cd $HOME\code\agent-skills
+.\install.ps1 --list
+.\install.ps1 --skill pptx-create
+```
+
+The installer symlinks each skill into `~/.claude/skills/` (directory junction on Windows when symlinks aren't permitted). If the skill ships a `requirements.txt`, you'll be prompted before any `pip install --user` runs — pass `--no-deps` to skip.
+
+You can also install a single skill from inside its own directory:
+
+```bash
+./skills/pptx-create/install.sh
 ```
 
 Open a new Claude Code session — the skill is now discoverable.
 
-To install every skill in the collection:
+**Other flags**
 
-```bash
-for d in ~/code/agent-skills/skills/*/; do
-  ln -s "$d" ~/.claude/skills/"$(basename "$d")"
-done
-```
+- `--copy` — copy files instead of linking (snapshot, repo edits won't propagate).
+- `--force` — overwrite existing entries without prompting.
+- `--target <path>` — install somewhere other than `~/.claude/skills`.
+- `--uninstall <name>` / `--uninstall all` — remove a skill (link/junction only; never deletes the cloned repo).
 
-To uninstall, remove the symlink: `rm ~/.claude/skills/pptx-create`.
+If Python isn't installed, the wrappers will tell you. The installer itself uses only the standard library.
 
 ## Repo layout
 
@@ -40,9 +60,15 @@ To uninstall, remove the symlink: `rm ~/.claude/skills/pptx-create`.
 agent-skills/
 ├── README.md
 ├── LICENSE
+├── install.py            # cross-platform installer
+├── install.sh            # bash wrapper
+├── install.ps1           # PowerShell wrapper
 └── skills/
     └── pptx-create/
         ├── SKILL.md
+        ├── requirements.txt
+        ├── install.sh    # delegates to root installer
+        ├── install.ps1
         ├── copilot-prompt.md
         ├── helpers/
         ├── templates/
@@ -56,10 +82,12 @@ Each skill lives in its own directory under `skills/`. New skills follow the sam
 
 1. Create `skills/<your-skill>/SKILL.md` with YAML frontmatter — at minimum `name`, `description`, and trigger phrases in the description.
 2. Add supporting files (helpers, templates, examples) alongside it.
-3. Add a row to the **Skills in this collection** table above.
-4. Open a PR.
+3. If the skill has Python deps, add a `skills/<your-skill>/requirements.txt`. The installer will offer to `pip install --user` from it.
+4. Optionally drop `install.sh` / `install.ps1` shims in the skill dir that delegate to the root installer (see `skills/pptx-create/` for the pattern).
+5. Add a row to the **Skills in this collection** table above.
+6. Open a PR.
 
-Keep skills self-contained — no cross-skill imports. A user should be able to install a single skill via one symlink without pulling in dependencies from other skills.
+Keep skills self-contained — no cross-skill imports. A user should be able to install a single skill without pulling in dependencies from other skills.
 
 ## License
 
