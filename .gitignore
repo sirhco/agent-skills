@@ -1,0 +1,19 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.egg-info/
+.venv/
+venv/
+.pytest_cache/
+
+# Build artifacts from skill examples
+*.pptx
+!skills/*/templates/*.pptx
+!skills/*/examples/**/*.pptx
+
+# OS / editor
+.DS_Store
+.idea/
+.vscode/
+*.swp
