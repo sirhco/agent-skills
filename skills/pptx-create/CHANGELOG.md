@@ -7,6 +7,8 @@ Format: [Keep a Changelog](https://keepachangelog.com/en/1.1.0/). Versioning: [S
 ## [Unreleased]
 
 ### Added
+- **Agent-with-user playbook** — `docs/AGENT-WORKFLOW.md` (discovery → confirm → build → inspect → lint → iterate, anti-patterns, PHI rules) and `docs/CUSTOMIZATION.md` (pattern-matched recipes for "make it X" requests). Refreshed `agent-prompt.md` for current slide kinds + CLI + brand.toml.
+- `SKILL.md` decision flow expanded with discovery script, customization quick-table, anti-patterns. `README.md` doc index now leads with agent-facing entries.
 - **End-user documentation suite** under `docs/`: `TUTORIAL.md` (5-min walkthrough), `MARKDOWN.md` (full md syntax with per-kind examples), `THEMES.md` (theme TOML schema, `extends`, `brand.toml`), `CLI.md` (every flag), `CONTRIBUTING.md` (extend the skill), `TROUBLESHOOTING.md` (common errors + fixes). Skill-root `README.md` added as human landing distinct from `SKILL.md`.
 - **Slide masters populated by theme** — `Deck._apply_master` sets background, brand footer, and logo on `prs.slide_master` so master edits propagate.
 - **Font embedding** — `helpers/embed_font.py` adds a TrueType font as `ppt/fonts/font<N>.fntdata`, registers it in `[Content_Types].xml`, `presentation.xml.rels`, and `presentation.xml`. `Deck.save()` invokes it automatically when the theme has `font_path`.
