@@ -60,12 +60,15 @@ open my-deck.pptx                            # macOS; PowerPoint takes it from h
 |---|---|
 | [`SKILL.md`](SKILL.md) | You're an LLM agent — quickstart + decision flow. |
 | [`REFERENCE.md`](REFERENCE.md) | Full API + style rules + healthcare conventions. |
+| [`docs/AGENT-WORKFLOW.md`](docs/AGENT-WORKFLOW.md) | Driving this skill from Claude (or any tool-using LLM) — discovery, build loop, iteration. |
+| [`docs/CUSTOMIZATION.md`](docs/CUSTOMIZATION.md) | Recipes for "make it X" — the day-to-day Claude playbook. |
 | [`docs/TUTORIAL.md`](docs/TUTORIAL.md) | First time — 5-minute walkthrough. |
 | [`docs/MARKDOWN.md`](docs/MARKDOWN.md) | Writing decks in markdown — full syntax + per-kind examples. |
 | [`docs/THEMES.md`](docs/THEMES.md) | Adding a custom theme or brand kit. |
 | [`docs/CLI.md`](docs/CLI.md) | Every `pptx <cmd>` flag with examples. |
 | [`docs/CONTRIBUTING.md`](docs/CONTRIBUTING.md) | Adding a new slide kind / theme / example. |
 | [`docs/TROUBLESHOOTING.md`](docs/TROUBLESHOOTING.md) | Hit an error? Look here first. |
+| [`agent-prompt.md`](agent-prompt.md) | Paste-into-LLM fallback when the skill isn't installed. |
 | [`CHANGELOG.md`](CHANGELOG.md) | What changed by version. |
 | [`examples/README.md`](examples/README.md) | Map use case → starter file. |
 

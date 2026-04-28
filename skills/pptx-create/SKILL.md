@@ -36,7 +36,45 @@ d.save("deck.pptx")
 1. Markdown outline? → A (`pptx render`).
 2. Data + code? → B (`Deck` class).
 3. Known shape? → C (copy example).
-4. Vague request? Ask: topic, audience, mode (corporate/pitch), slide count, brand colors, output path.
+4. Vague request? Run discovery script below.
+
+## Discovery script (when user is vague)
+
+Ask only the gaps. Don't interrogate.
+
+> 1. Audience? (board, customer, prospect, team, investor)
+> 2. Tone — corporate (data-dense) or pitch (bold, editorial)?
+> 3. Slide count, or want me to scaffold from a template (qbr / sales / pitch / allhands / postmortem)?
+> 4. Brand colors / logo? Or built-in theme?
+> 5. Where to save?
+
+Confirm in one sentence before generating: *"Building 10-slide corporate QBR for Acme board, theme `mckinsey`, `./acme-q3.pptx`. OK?"*
+
+## Loop after build
+
+`pptx inspect deck.pptx` (structure) + `pptx lint deck.pptx` (WCAG / overflow / alt-text). Surface lint output. Never claim visual fidelity — user opens in PowerPoint.
+
+## Customization patterns
+
+User says "make it X" → recipes in `docs/CUSTOMIZATION.md`. Hot ones:
+
+| Request | Action |
+|---|---|
+| "more visual" | swap `[bullets]` → `[metric_grid]` / `[chart]` / `[big_stat]` |
+| "use our brand" | write `brand.toml` (accent / logo / footer) |
+| "make it dark" | `--mode dark` |
+| "convert to pitch" | swap theme + restructure (1 idea/slide, big stats) |
+| "shorter" | combine bullets into `[two-col]`, drop dividers |
+| "add chart for X" | ask for numbers first, then `[chart]` block |
+| "fix slide N" | edit only that block, re-render |
+
+## Anti-patterns
+
+- Don't fabricate data. Ask for numbers.
+- Don't ignore lint errors (contrast, alt-text are accessibility blockers).
+- Don't rewrite whole deck for one tweak.
+- Don't claim visual fidelity.
+- For healthcare: flag real-looking PHI before generating.
 
 ## Pick an example
 
@@ -95,7 +133,9 @@ Optional extras (`pip install -r requirements-extras.txt`): `pygments` (code hig
 
 - `REFERENCE.md` — full slide-method API, theme color schema, markdown syntax, healthcare conventions, style rules, common pitfalls.
 - `README.md` — human-facing landing page.
-- `docs/TUTORIAL.md` — 5-minute walkthrough.
+- `docs/AGENT-WORKFLOW.md` — full Claude-with-user playbook (read first if you're an agent).
+- `docs/CUSTOMIZATION.md` — recipes for "make it X" requests.
+- `docs/TUTORIAL.md` — 5-minute walkthrough (human-facing).
 - `docs/MARKDOWN.md` — every md slide kind with examples.
 - `docs/THEMES.md` — theme TOML schema, `extends`, `brand.toml`.
 - `docs/CLI.md` — every `pptx <cmd>` flag.
