@@ -7,6 +7,11 @@ Format: [Keep a Changelog](https://keepachangelog.com/en/1.1.0/). Versioning: [S
 ## [Unreleased]
 
 ### Added
+- **Slide masters populated by theme** — `Deck._apply_master` sets background, brand footer, and logo on `prs.slide_master` so master edits propagate.
+- **Font embedding** — `helpers/embed_font.py` adds a TrueType font as `ppt/fonts/font<N>.fntdata`, registers it in `[Content_Types].xml`, `presentation.xml.rels`, and `presentation.xml`. `Deck.save()` invokes it automatically when the theme has `font_path`.
+- **Reveal.js full-fidelity export** — `helpers/markdown_to_reveal.py` (and `pptx reveal` subcommand) renders every slide kind to HTML: charts via Chart.js, code via highlight.js, images copied into `assets/`, speaker notes via the notes plugin.
+- **Theme screenshots script** — `scripts/render_theme_screenshots.sh` builds `theme_gallery.pptx`, converts to PDF via LibreOffice, slices per-theme PNGs into `themes/screenshots/`.
+- **Snapshot baselines** — initial JSON snapshots committed under `tests/snapshots/` for all 11 example decks (10 worked decks + theme gallery).
 - `__version__` constant in `helpers/build_deck.py`.
 - `REFERENCE.md` — full API + conventions reference. `SKILL.md` now quickstart-only.
 - `CHANGELOG.md` — this file.

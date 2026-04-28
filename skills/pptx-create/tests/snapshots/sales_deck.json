@@ -1,0 +1,120 @@
+{
+  "sha256": "6f8898c098daee4d22f9ec8ca6d1ffd9a275ec264f540b21bb00fb3ecfe9b6e9",
+  "summary": {
+    "slide_count": 12,
+    "slides": [
+      {
+        "n": 1,
+        "shape_kinds": [
+          "text",
+          "text"
+        ],
+        "title": "Ship faster. Review smarter."
+      },
+      {
+        "n": 2,
+        "shape_kinds": [
+          "text",
+          "text"
+        ],
+        "title": "47%"
+      },
+      {
+        "n": 3,
+        "shape_kinds": [
+          "text",
+          "text",
+          "text",
+          "text"
+        ],
+        "title": "Ferro for {{Prospect}}"
+      },
+      {
+        "n": 4,
+        "shape_kinds": [
+          "text",
+          "text"
+        ],
+        "title": "What we do"
+      },
+      {
+        "n": 5,
+        "shape_kinds": [
+          "text",
+          "text",
+          "text",
+          "text",
+          "text",
+          "text",
+          "text"
+        ],
+        "title": "Ferro for {{Prospect}}"
+      },
+      {
+        "n": 6,
+        "shape_kinds": [
+          "text",
+          "text",
+          "text",
+          "text"
+        ],
+        "title": "Ferro for {{Prospect}}"
+      },
+      {
+        "n": 7,
+        "shape_kinds": [
+          "text",
+          "text"
+        ],
+        "title": "Proof"
+      },
+      {
+        "n": 8,
+        "shape_kinds": [
+          "text",
+          "text",
+          "text",
+          "text"
+        ],
+        "title": "Ferro for {{Prospect}}"
+      },
+      {
+        "n": 9,
+        "shape_kinds": [
+          "table",
+          "text",
+          "text",
+          "text"
+        ],
+        "title": "Ferro for {{Prospect}}"
+      },
+      {
+        "n": 10,
+        "shape_kinds": [
+          "text",
+          "text"
+        ],
+        "title": "Investment"
+      },
+      {
+        "n": 11,
+        "shape_kinds": [
+          "text",
+          "text",
+          "text",
+          "text"
+        ],
+        "title": "Ferro for {{Prospect}}"
+      },
+      {
+        "n": 12,
+        "shape_kinds": [
+          "text",
+          "text",
+          "text"
+        ],
+        "title": "Next step: 30-day pilot"
+      }
+    ]
+  }
+}

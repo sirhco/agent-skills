@@ -1,0 +1,142 @@
+{
+  "sha256": "3d94aa619bf928d9888d1861740acdd868d84f270ff202d5df7c3a728d738422",
+  "summary": {
+    "slide_count": 15,
+    "slides": [
+      {
+        "n": 1,
+        "shape_kinds": [
+          "text",
+          "text"
+        ],
+        "title": "Ferro"
+      },
+      {
+        "n": 2,
+        "shape_kinds": [
+          "text",
+          "text"
+        ],
+        "title": "$280B"
+      },
+      {
+        "n": 3,
+        "shape_kinds": [
+          "text",
+          "text",
+          "text",
+          "text"
+        ],
+        "title": "Ferro"
+      },
+      {
+        "n": 4,
+        "shape_kinds": [
+          "text",
+          "text"
+        ],
+        "title": "47%"
+      },
+      {
+        "n": 5,
+        "shape_kinds": [
+          "text",
+          "text"
+        ],
+        "title": "Our insight"
+      },
+      {
+        "n": 6,
+        "shape_kinds": [
+          "text",
+          "text"
+        ],
+        "title": "LLMs can review code."
+      },
+      {
+        "n": 7,
+        "shape_kinds": [
+          "text",
+          "text",
+          "text",
+          "text"
+        ],
+        "title": "Ferro"
+      },
+      {
+        "n": 8,
+        "shape_kinds": [
+          "text",
+          "text"
+        ],
+        "title": "Traction"
+      },
+      {
+        "n": 9,
+        "shape_kinds": [
+          "text",
+          "text"
+        ],
+        "title": "$1.2M"
+      },
+      {
+        "n": 10,
+        "shape_kinds": [
+          "chart",
+          "text",
+          "text",
+          "text"
+        ],
+        "title": "Ferro"
+      },
+      {
+        "n": 11,
+        "shape_kinds": [
+          "text",
+          "text",
+          "text",
+          "text"
+        ],
+        "title": "Ferro"
+      },
+      {
+        "n": 12,
+        "shape_kinds": [
+          "text",
+          "text"
+        ],
+        "title": "Team"
+      },
+      {
+        "n": 13,
+        "shape_kinds": [
+          "text",
+          "text",
+          "text",
+          "text",
+          "text",
+          "text",
+          "text"
+        ],
+        "title": "Ferro"
+      },
+      {
+        "n": 14,
+        "shape_kinds": [
+          "text",
+          "text"
+        ],
+        "title": "The ask"
+      },
+      {
+        "n": 15,
+        "shape_kinds": [
+          "text",
+          "text",
+          "text"
+        ],
+        "title": "Raising $8M"
+      }
+    ]
+  }
+}

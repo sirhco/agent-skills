@@ -162,6 +162,20 @@ def cmd_diff(args: argparse.Namespace) -> int:
     return 0 if not result.get("differs") else 1
 
 
+def cmd_reveal(args: argparse.Namespace) -> int:
+    from helpers.markdown_to_reveal import render_markdown_to_reveal
+    in_path = Path(args.input)
+    if not in_path.is_file():
+        print(f"error: input not found: {in_path}", file=sys.stderr)
+        return 1
+    out_dir = Path(args.output) if args.output else in_path.with_suffix("")
+    render_markdown_to_reveal(in_path, out_dir, theme=args.theme, brand=args.brand or "")
+    print(f"+ {out_dir / 'index.html'}")
+    if args.open:
+        _open_in_viewer(out_dir / "index.html")
+    return 0
+
+
 def cmd_export(args: argparse.Namespace) -> int:
     from helpers.export_deck import export_pdf, export_thumbs, export_reveal
     deck = Path(args.deck)
@@ -241,6 +255,14 @@ def build_parser() -> argparse.ArgumentParser:
     sp.add_argument("--thumbs", help="dir for per-slide PNG thumbs")
     sp.add_argument("--reveal", help="dir for reveal.js html bundle")
     sp.set_defaults(func=cmd_export)
+
+    sp = sub.add_parser("reveal", help="markdown -> reveal.js HTML (full fidelity)")
+    sp.add_argument("input", help="input markdown file")
+    sp.add_argument("-o", "--output", help="output directory (default: <input-stem>/)")
+    sp.add_argument("--theme", help="theme name")
+    sp.add_argument("--brand", help="brand string")
+    sp.add_argument("--open", action="store_true", help="open index.html after build")
+    sp.set_defaults(func=cmd_reveal)
 
     sp = sub.add_parser("themes", help="list available themes")
     sp.set_defaults(func=cmd_themes)

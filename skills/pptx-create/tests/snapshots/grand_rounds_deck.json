@@ -1,0 +1,150 @@
+{
+  "sha256": "2ac0681b60116cdb5b8531755cbc3949bb24461fd0e2437d015c16e6df29930a",
+  "summary": {
+    "slide_count": 15,
+    "slides": [
+      {
+        "n": 1,
+        "shape_kinds": [
+          "text",
+          "text"
+        ],
+        "title": "Diagnostic anchoring in atypical chest pain"
+      },
+      {
+        "n": 2,
+        "shape_kinds": [
+          "text",
+          "text",
+          "text",
+          "text"
+        ],
+        "title": "Medicine Grand Rounds \u00b7 2026-04-27"
+      },
+      {
+        "n": 3,
+        "shape_kinds": [
+          "text",
+          "text"
+        ],
+        "title": "Case"
+      },
+      {
+        "n": 4,
+        "shape_kinds": [
+          "text",
+          "text",
+          "text",
+          "text"
+        ],
+        "title": "Medicine Grand Rounds \u00b7 2026-04-27"
+      },
+      {
+        "n": 5,
+        "shape_kinds": [
+          "table",
+          "text",
+          "text",
+          "text"
+        ],
+        "title": "Medicine Grand Rounds \u00b7 2026-04-27"
+      },
+      {
+        "n": 6,
+        "shape_kinds": [
+          "text",
+          "text"
+        ],
+        "title": "Diagnostic reasoning"
+      },
+      {
+        "n": 7,
+        "shape_kinds": [
+          "text",
+          "text",
+          "text",
+          "text",
+          "text",
+          "text",
+          "text"
+        ],
+        "title": "Medicine Grand Rounds \u00b7 2026-04-27"
+      },
+      {
+        "n": 8,
+        "shape_kinds": [
+          "text",
+          "text",
+          "text",
+          "text"
+        ],
+        "title": "Medicine Grand Rounds \u00b7 2026-04-27"
+      },
+      {
+        "n": 9,
+        "shape_kinds": [
+          "text",
+          "text"
+        ],
+        "title": "Evidence"
+      },
+      {
+        "n": 10,
+        "shape_kinds": [
+          "table",
+          "text",
+          "text",
+          "text"
+        ],
+        "title": "Medicine Grand Rounds \u00b7 2026-04-27"
+      },
+      {
+        "n": 11,
+        "shape_kinds": [
+          "text",
+          "text",
+          "text",
+          "text"
+        ],
+        "title": "Medicine Grand Rounds \u00b7 2026-04-27"
+      },
+      {
+        "n": 12,
+        "shape_kinds": [
+          "text",
+          "text"
+        ],
+        "title": "Outcome + lessons"
+      },
+      {
+        "n": 13,
+        "shape_kinds": [
+          "text",
+          "text",
+          "text",
+          "text"
+        ],
+        "title": "Medicine Grand Rounds \u00b7 2026-04-27"
+      },
+      {
+        "n": 14,
+        "shape_kinds": [
+          "text",
+          "text",
+          "text",
+          "text"
+        ],
+        "title": "Medicine Grand Rounds \u00b7 2026-04-27"
+      },
+      {
+        "n": 15,
+        "shape_kinds": [
+          "text",
+          "text",
+          "text"
+        ],
+        "title": "Take-aways"
+      }
+    ]
+  }
+}

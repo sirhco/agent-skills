@@ -137,6 +137,7 @@ class Deck:
         self._sections = []   # populated by section() — used for agenda strip
         self._current_section_index = -1
         self._titles = []     # for accessibility uniqueness check
+        self._apply_master(self.theme)
 
     def _new(self, with_footer=True):
         slide = self.prs.slides.add_slide(self.prs.slide_layouts[6])
@@ -167,6 +168,54 @@ class Deck:
             x = x0 + i * (dot_size + gap)
             color = t["accent"] if i == active else t["muted"]
             add_rect(slide, x, y, dot_size, dot_size, color)
+
+    def _apply_master(self, theme):
+        """Populate prs.slide_master so background, brand footer, and logo are
+        inherited by every slide. Per-slide rendering still draws explicit shapes
+        for compatibility with the existing snapshot tests."""
+        try:
+            master = self.prs.slide_master
+            # 1. background fill
+            try:
+                bg = master.background
+                bg.fill.solid()
+                bg.fill.fore_color.rgb = theme["bg"]
+            except Exception:
+                pass
+            # 2. logo on master (single placement; per-slide draw skips it on title slide via with_footer flag)
+            logo_path = theme.get("logo_path")
+            if logo_path and os.path.exists(logo_path):
+                pos = theme.get("logo_position", "tr")
+                size = Inches(0.6)
+                margin = Inches(0.3)
+                sw, sh = self.prs.slide_width, self.prs.slide_height
+                if pos == "tl":
+                    x, y = margin, margin
+                elif pos == "bl":
+                    x, y = margin, sh - size - margin
+                elif pos == "br":
+                    x, y = sw - size - margin, sh - size - margin
+                else:
+                    x, y = sw - size - margin, margin
+                try:
+                    pic = master.shapes.add_picture(logo_path, x, y, height=size)
+                    try:
+                        pic.element.nvSpPr.cNvPr.set("descr", "brand logo")
+                    except Exception:
+                        pass
+                except Exception:
+                    pass
+            # 3. brand footer text on master
+            footer = self.brand or theme.get("footer_text", "")
+            if footer:
+                try:
+                    add_text(master, footer, Inches(0.6), Inches(7.05), Inches(6), Inches(0.3),
+                             size=10, color=theme["muted"], font=theme["font"])
+                except Exception:
+                    pass
+        except Exception:
+            # master mutation is best-effort; per-slide draw remains the source of truth.
+            pass
 
     def _draw_logo(self, slide):
         path = self.theme.get("logo_path")
@@ -872,6 +921,16 @@ class Deck:
 
     def save(self, path):
         self.prs.save(path)
+        # post-save font embedding (best-effort; failure does not break save)
+        font_path = self.theme.get("font_path")
+        if font_path and os.path.exists(font_path):
+            try:
+                from helpers.embed_font import embed_font
+                from pathlib import Path as _Path
+                embed_font(_Path(path), _Path(font_path),
+                           typeface=self.theme.get("font", "Calibri"))
+            except Exception as e:
+                print(f"warn: font embed failed: {e}")
         return path
 
 

@@ -1,0 +1,130 @@
+{
+  "sha256": "34461930564d2b813a49ba0cad2c2092a5444185b1b258eaf3115aa7ef370d55",
+  "summary": {
+    "slide_count": 13,
+    "slides": [
+      {
+        "n": 1,
+        "shape_kinds": [
+          "text",
+          "text"
+        ],
+        "title": "Quarterly Business Review"
+      },
+      {
+        "n": 2,
+        "shape_kinds": [
+          "text",
+          "text",
+          "text",
+          "text"
+        ],
+        "title": "Acme \u00b7 QBR \u00b7 Q3 2026"
+      },
+      {
+        "n": 3,
+        "shape_kinds": [
+          "text",
+          "text"
+        ],
+        "title": "Executive summary"
+      },
+      {
+        "n": 4,
+        "shape_kinds": [
+          "text",
+          "text",
+          "text",
+          "text",
+          "text",
+          "text",
+          "text"
+        ],
+        "title": "Acme \u00b7 QBR \u00b7 Q3 2026"
+      },
+      {
+        "n": 5,
+        "shape_kinds": [
+          "text",
+          "text"
+        ],
+        "title": "Adoption + usage"
+      },
+      {
+        "n": 6,
+        "shape_kinds": [
+          "chart",
+          "text",
+          "text",
+          "text"
+        ],
+        "title": "Acme \u00b7 QBR \u00b7 Q3 2026"
+      },
+      {
+        "n": 7,
+        "shape_kinds": [
+          "table",
+          "text",
+          "text",
+          "text"
+        ],
+        "title": "Acme \u00b7 QBR \u00b7 Q3 2026"
+      },
+      {
+        "n": 8,
+        "shape_kinds": [
+          "text",
+          "text"
+        ],
+        "title": "Outcomes vs goals"
+      },
+      {
+        "n": 9,
+        "shape_kinds": [
+          "chart",
+          "text",
+          "text",
+          "text"
+        ],
+        "title": "Acme \u00b7 QBR \u00b7 Q3 2026"
+      },
+      {
+        "n": 10,
+        "shape_kinds": [
+          "text",
+          "text",
+          "text",
+          "text"
+        ],
+        "title": "Acme \u00b7 QBR \u00b7 Q3 2026"
+      },
+      {
+        "n": 11,
+        "shape_kinds": [
+          "text",
+          "text"
+        ],
+        "title": "Roadmap + renewal"
+      },
+      {
+        "n": 12,
+        "shape_kinds": [
+          "text",
+          "text",
+          "text",
+          "text"
+        ],
+        "title": "Acme \u00b7 QBR \u00b7 Q3 2026"
+      },
+      {
+        "n": 13,
+        "shape_kinds": [
+          "text",
+          "text",
+          "text"
+        ],
+        "title": "Renewal: 2026-09-30"
+      }
+    ]
+  }
+}

@@ -69,6 +69,8 @@ Pitch: `pitch-noir`, `pitch-editorial`, `pitch-electric`, `pitch-violet`, `pitch
 ```bash
 pptx inspect deck.pptx        # structure: titles, shape counts, bodies
 pptx lint deck.pptx           # contrast (WCAG AA), overflow, missing alt-text
+pptx export deck.pptx --pdf   # PDF (LibreOffice) or --thumbs DIR for PNGs
+pptx reveal outline.md -o web/   # markdown -> reveal.js (full fidelity)
 ```
 
 You **cannot visually verify** rendering — state this. User opens in PowerPoint to confirm look.

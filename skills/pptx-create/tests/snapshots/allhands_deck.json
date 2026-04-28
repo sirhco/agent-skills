@@ -1,0 +1,102 @@
+{
+  "sha256": "0c0c37aa446e7ab12a9ce65ac0b8891c367d90abbfb6c5d2ec5f497b6894c620",
+  "summary": {
+    "slide_count": 10,
+    "slides": [
+      {
+        "n": 1,
+        "shape_kinds": [
+          "text",
+          "text"
+        ],
+        "title": "All-Hands"
+      },
+      {
+        "n": 2,
+        "shape_kinds": [
+          "text",
+          "text",
+          "text",
+          "text"
+        ],
+        "title": "Acme \u00b7 All-Hands \u00b7 2026-04"
+      },
+      {
+        "n": 3,
+        "shape_kinds": [
+          "text",
+          "text"
+        ],
+        "title": "Wins"
+      },
+      {
+        "n": 4,
+        "shape_kinds": [
+          "text",
+          "text",
+          "text",
+          "text"
+        ],
+        "title": "Acme \u00b7 All-Hands \u00b7 2026-04"
+      },
+      {
+        "n": 5,
+        "shape_kinds": [
+          "text",
+          "text",
+          "text",
+          "text"
+        ],
+        "title": "Acme \u00b7 All-Hands \u00b7 2026-04"
+      },
+      {
+        "n": 6,
+        "shape_kinds": [
+          "text",
+          "text"
+        ],
+        "title": "Q2 priorities"
+      },
+      {
+        "n": 7,
+        "shape_kinds": [
+          "text",
+          "text",
+          "text",
+          "text"
+        ],
+        "title": "Acme \u00b7 All-Hands \u00b7 2026-04"
+      },
+      {
+        "n": 8,
+        "shape_kinds": [
+          "text",
+          "text"
+        ],
+        "title": "People"
+      },
+      {
+        "n": 9,
+        "shape_kinds": [
+          "text",
+          "text",
+          "text",
+          "text",
+          "text",
+          "text",
+          "text"
+        ],
+        "title": "Acme \u00b7 All-Hands \u00b7 2026-04"
+      },
+      {
+        "n": 10,
+        "shape_kinds": [
+          "text",
+          "text",
+          "text"
+        ],
+        "title": "Questions?"
+      }
+    ]
+  }
+}

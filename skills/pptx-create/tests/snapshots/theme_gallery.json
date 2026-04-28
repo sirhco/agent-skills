@@ -1,0 +1,646 @@
+{
+  "sha256": "fe0402796c08e0b8fed65843dae5767269cd7dbe68978b58669664d4cb8ea7ed",
+  "summary": {
+    "slide_count": 57,
+    "slides": [
+      {
+        "n": 1,
+        "shape_kinds": [
+          "text",
+          "text"
+        ],
+        "title": "Theme Gallery"
+      },
+      {
+        "n": 2,
+        "shape_kinds": [
+          "text"
+        ],
+        "title": "acme-brand"
+      },
+      {
+        "n": 3,
+        "shape_kinds": [
+          "text",
+          "text",
+          "text",
+          "text"
+        ],
+        "title": "theme gallery"
+      },
+      {
+        "n": 4,
+        "shape_kinds": [
+          "text",
+          "text",
+          "text",
+          "text",
+          "text",
+          "text",
+          "text",
+          "text",
+          "text",
+          "text",
+          "text",
+          "text",
+          "text",
+          "text"
+        ],
+        "title": "theme gallery"
+      },
+      {
+        "n": 5,
+        "shape_kinds": [
+          "text",
+          "text"
+        ],
+        "title": "acme-brand"
+      },
+      {
+        "n": 6,
+        "shape_kinds": [
+          "text"
+        ],
+        "title": "apple"
+      },
+      {
+        "n": 7,
+        "shape_kinds": [
+          "text",
+          "text",
+          "text",
+          "text"
+        ],
+        "title": "theme gallery"
+      },
+      {
+        "n": 8,
+        "shape_kinds": [
+          "text",
+          "text",
+          "text",
+          "text",
+          "text",
+          "text",
+          "text",
+          "text",
+          "text",
+          "text",
+          "text",
+          "text",
+          "text",
+          "text"
+        ],
+        "title": "theme gallery"
+      },
+      {
+        "n": 9,
+        "shape_kinds": [
+          "text",
+          "text"
+        ],
+        "title": "apple"
+      },
+      {
+        "n": 10,
+        "shape_kinds": [
+          "text"
+        ],
+        "title": "corporate-default"
+      },
+      {
+        "n": 11,
+        "shape_kinds": [
+          "text",
+          "text",
+          "text",
+          "text"
+        ],
+        "title": "theme gallery"
+      },
+      {
+        "n": 12,
+        "shape_kinds": [
+          "text",
+          "text",
+          "text",
+          "text",
+          "text",
+          "text",
+          "text",
+          "text",
+          "text",
+          "text",
+          "text",
+          "text",
+          "text",
+          "text"
+        ],
+        "title": "theme gallery"
+      },
+      {
+        "n": 13,
+        "shape_kinds": [
+          "text",
+          "text"
+        ],
+        "title": "corporate-default"
+      },
+      {
+        "n": 14,
+        "shape_kinds": [
+          "text"
+        ],
+        "title": "finance"
+      },
+      {
+        "n": 15,
+        "shape_kinds": [
+          "text",
+          "text",
+          "text",
+          "text"
+        ],
+        "title": "theme gallery"
+      },
+      {
+        "n": 16,
+        "shape_kinds": [
+          "text",
+          "text",
+          "text",
+          "text",
+          "text",
+          "text",
+          "text",
+          "text",
+          "text",
+          "text",
+          "text",
+          "text",
+          "text",
+          "text"
+        ],
+        "title": "theme gallery"
+      },
+      {
+        "n": 17,
+        "shape_kinds": [
+          "text",
+          "text"
+        ],
+        "title": "finance"
+      },
+      {
+        "n": 18,
+        "shape_kinds": [
+          "text"
+        ],
+        "title": "healthcare"
+      },
+      {
+        "n": 19,
+        "shape_kinds": [
+          "text",
+          "text",
+          "text",
+          "text"
+        ],
+        "title": "theme gallery"
+      },
+      {
+        "n": 20,
+        "shape_kinds": [
+          "text",
+          "text",
+          "text",
+          "text",
+          "text",
+          "text",
+          "text",
+          "text",
+          "text",
+          "text",
+          "text",
+          "text",
+          "text",
+          "text"
+        ],
+        "title": "theme gallery"
+      },
+      {
+        "n": 21,
+        "shape_kinds": [
+          "text",
+          "text"
+        ],
+        "title": "healthcare"
+      },
+      {
+        "n": 22,
+        "shape_kinds": [
+          "text"
+        ],
+        "title": "linear"
+      },
+      {
+        "n": 23,
+        "shape_kinds": [
+          "text",
+          "text",
+          "text",
+          "text"
+        ],
+        "title": "theme gallery"
+      },
+      {
+        "n": 24,
+        "shape_kinds": [
+          "text",
+          "text",
+          "text",
+          "text",
+          "text",
+          "text",
+          "text",
+          "text",
+          "text",
+          "text",
+          "text",
+          "text",
+          "text",
+          "text"
+        ],
+        "title": "theme gallery"
+      },
+      {
+        "n": 25,
+        "shape_kinds": [
+          "text",
+          "text"
+        ],
+        "title": "linear"
+      },
+      {
+        "n": 26,
+        "shape_kinds": [
+          "text"
+        ],
+        "title": "mckinsey"
+      },
+      {
+        "n": 27,
+        "shape_kinds": [
+          "text",
+          "text",
+          "text",
+          "text"
+        ],
+        "title": "theme gallery"
+      },
+      {
+        "n": 28,
+        "shape_kinds": [
+          "text",
+          "text",
+          "text",
+          "text",
+          "text",
+          "text",
+          "text",
+          "text",
+          "text",
+          "text",
+          "text",
+          "text",
+          "text",
+          "text"
+        ],
+        "title": "theme gallery"
+      },
+      {
+        "n": 29,
+        "shape_kinds": [
+          "text",
+          "text"
+        ],
+        "title": "mckinsey"
+      },
+      {
+        "n": 30,
+        "shape_kinds": [
+          "text"
+        ],
+        "title": "monochrome"
+      },
+      {
+        "n": 31,
+        "shape_kinds": [
+          "text",
+          "text",
+          "text",
+          "text"
+        ],
+        "title": "theme gallery"
+      },
+      {
+        "n": 32,
+        "shape_kinds": [
+          "text",
+          "text",
+          "text",
+          "text",
+          "text",
+          "text",
+          "text",
+          "text",
+          "text",
+          "text",
+          "text",
+          "text",
+          "text",
+          "text"
+        ],
+        "title": "theme gallery"
+      },
+      {
+        "n": 33,
+        "shape_kinds": [
+          "text",
+          "text"
+        ],
+        "title": "monochrome"
+      },
+      {
+        "n": 34,
+        "shape_kinds": [
+          "text"
+        ],
+        "title": "pitch-clay"
+      },
+      {
+        "n": 35,
+        "shape_kinds": [
+          "text",
+          "text",
+          "text",
+          "text"
+        ],
+        "title": "theme gallery"
+      },
+      {
+        "n": 36,
+        "shape_kinds": [
+          "text",
+          "text",
+          "text",
+          "text",
+          "text",
+          "text",
+          "text",
+          "text",
+          "text",
+          "text",
+          "text",
+          "text",
+          "text",
+          "text"
+        ],
+        "title": "theme gallery"
+      },
+      {
+        "n": 37,
+        "shape_kinds": [
+          "text",
+          "text"
+        ],
+        "title": "pitch-clay"
+      },
+      {
+        "n": 38,
+        "shape_kinds": [
+          "text"
+        ],
+        "title": "pitch-editorial"
+      },
+      {
+        "n": 39,
+        "shape_kinds": [
+          "text",
+          "text",
+          "text",
+          "text"
+        ],
+        "title": "theme gallery"
+      },
+      {
+        "n": 40,
+        "shape_kinds": [
+          "text",
+          "text",
+          "text",
+          "text",
+          "text",
+          "text",
+          "text",
+          "text",
+          "text",
+          "text",
+          "text",
+          "text",
+          "text",
+          "text"
+        ],
+        "title": "theme gallery"
+      },
+      {
+        "n": 41,
+        "shape_kinds": [
+          "text",
+          "text"
+        ],
+        "title": "pitch-editorial"
+      },
+      {
+        "n": 42,
+        "shape_kinds": [
+          "text"
+        ],
+        "title": "pitch-electric"
+      },
+      {
+        "n": 43,
+        "shape_kinds": [
+          "text",
+          "text",
+          "text",
+          "text"
+        ],
+        "title": "theme gallery"
+      },
+      {
+        "n": 44,
+        "shape_kinds": [
+          "text",
+          "text",
+          "text",
+          "text",
+          "text",
+          "text",
+          "text",
+          "text",
+          "text",
+          "text",
+          "text",
+          "text",
+          "text",
+          "text"
+        ],
+        "title": "theme gallery"
+      },
+      {
+        "n": 45,
+        "shape_kinds": [
+          "text",
+          "text"
+        ],
+        "title": "pitch-electric"
+      },
+      {
+        "n": 46,
+        "shape_kinds": [
+          "text"
+        ],
+        "title": "pitch-noir"
+      },
+      {
+        "n": 47,
+        "shape_kinds": [
+          "text",
+          "text",
+          "text",
+          "text"
+        ],
+        "title": "theme gallery"
+      },
+      {
+        "n": 48,
+        "shape_kinds": [
+          "text",
+          "text",
+          "text",
+          "text",
+          "text",
+          "text",
+          "text",
+          "text",
+          "text",
+          "text",
+          "text",
+          "text",
+          "text",
+          "text"
+        ],
+        "title": "theme gallery"
+      },
+      {
+        "n": 49,
+        "shape_kinds": [
+          "text",
+          "text"
+        ],
+        "title": "pitch-noir"
+      },
+      {
+        "n": 50,
+        "shape_kinds": [
+          "text"
+        ],
+        "title": "pitch-violet"
+      },
+      {
+        "n": 51,
+        "shape_kinds": [
+          "text",
+          "text",
+          "text",
+          "text"
+        ],
+        "title": "theme gallery"
+      },
+      {
+        "n": 52,
+        "shape_kinds": [
+          "text",
+          "text",
+          "text",
+          "text",
+          "text",
+          "text",
+          "text",
+          "text",
+          "text",
+          "text",
+          "text",
+          "text",
+          "text",
+          "text"
+        ],
+        "title": "theme gallery"
+      },
+      {
+        "n": 53,
+        "shape_kinds": [
+          "text",
+          "text"
+        ],
+        "title": "pitch-violet"
+      },
+      {
+        "n": 54,
+        "shape_kinds": [
+          "text"
+        ],
+        "title": "stripe"
+      },
+      {
+        "n": 55,
+        "shape_kinds": [
+          "text",
+          "text",
+          "text",
+          "text"
+        ],
+        "title": "theme gallery"
+      },
+      {
+        "n": 56,
+        "shape_kinds": [
+          "text",
+          "text",
+          "text",
+          "text",
+          "text",
+          "text",
+          "text",
+          "text",
+          "text",
+          "text",
+          "text",
+          "text",
+          "text",
+          "text"
+        ],
+        "title": "theme gallery"
+      },
+      {
+        "n": 57,
+        "shape_kinds": [
+          "text",
+          "text"
+        ],
+        "title": "stripe"
+      }
+    ]
+  }
+}
