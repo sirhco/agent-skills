@@ -7,6 +7,7 @@ Format: [Keep a Changelog](https://keepachangelog.com/en/1.1.0/). Versioning: [S
 ## [Unreleased]
 
 ### Added
+- **End-user documentation suite** under `docs/`: `TUTORIAL.md` (5-min walkthrough), `MARKDOWN.md` (full md syntax with per-kind examples), `THEMES.md` (theme TOML schema, `extends`, `brand.toml`), `CLI.md` (every flag), `CONTRIBUTING.md` (extend the skill), `TROUBLESHOOTING.md` (common errors + fixes). Skill-root `README.md` added as human landing distinct from `SKILL.md`.
 - **Slide masters populated by theme** — `Deck._apply_master` sets background, brand footer, and logo on `prs.slide_master` so master edits propagate.
 - **Font embedding** — `helpers/embed_font.py` adds a TrueType font as `ppt/fonts/font<N>.fntdata`, registers it in `[Content_Types].xml`, `presentation.xml.rels`, and `presentation.xml`. `Deck.save()` invokes it automatically when the theme has `font_path`.
 - **Reveal.js full-fidelity export** — `helpers/markdown_to_reveal.py` (and `pptx reveal` subcommand) renders every slide kind to HTML: charts via Chart.js, code via highlight.js, images copied into `assets/`, speaker notes via the notes plugin.
