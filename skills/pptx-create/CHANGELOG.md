@@ -7,6 +7,14 @@ Format: [Keep a Changelog](https://keepachangelog.com/en/1.1.0/). Versioning: [S
 ## [Unreleased]
 
 ### Added
+- **First-class user-specifiable controls** for theme colors, slide count, and background images:
+  - `--colors "bg=#FFF,accent=#0E8388,ink=#0A2540"` CLI flag for inline palette overrides (also frontmatter `colors:` block).
+  - `--bg PATH` CLI flag for default background image on every slide; `--slide-bg "1=path,5=other"` for per-slide overrides (also frontmatter `backgrounds:` block).
+  - `--target-slides N` CLI flag warns when rendered slide count differs (also frontmatter `slides: N`). Warn-only — does not abort.
+  - `theme.toml` `[brand]` and `brand.toml` accept `background_image` + `background_image_position`.
+  - `Deck.set_slide_background(slide, path, position="cover|contain")` programmatic API.
+  - Frontmatter parser now supports nested mappings and dotted-flat keys (`colors.accent`, `backgrounds.3`).
+  - `AGENT-WORKFLOW.md` discovery script grew from 5 to 7 inputs covering colors / count / backgrounds.
 - **Agent-with-user playbook** — `docs/AGENT-WORKFLOW.md` (discovery → confirm → build → inspect → lint → iterate, anti-patterns, PHI rules) and `docs/CUSTOMIZATION.md` (pattern-matched recipes for "make it X" requests). Refreshed `agent-prompt.md` for current slide kinds + CLI + brand.toml.
 - `SKILL.md` decision flow expanded with discovery script, customization quick-table, anti-patterns. `README.md` doc index now leads with agent-facing entries.
 - **End-user documentation suite** under `docs/`: `TUTORIAL.md` (5-min walkthrough), `MARKDOWN.md` (full md syntax with per-kind examples), `THEMES.md` (theme TOML schema, `extends`, `brand.toml`), `CLI.md` (every flag), `CONTRIBUTING.md` (extend the skill), `TROUBLESHOOTING.md` (common errors + fixes). Skill-root `README.md` added as human landing distinct from `SKILL.md`.

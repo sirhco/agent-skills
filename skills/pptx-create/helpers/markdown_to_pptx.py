@@ -294,12 +294,15 @@ def _chart_from_subs(slide):
     return cats, series
 
 
-def build_from_md(md_text, theme_name="corporate", brand="", *, mode=None, brand_kit=None):
+def build_from_md(md_text, theme_name="corporate", brand="", *, mode=None, brand_kit=None,
+                   palette_override=None, default_background=None, slide_backgrounds=None):
     theme = get_theme(theme_name, mode=mode, brand=brand_kit)
     slides = parse_md(md_text)
-    d = Deck(theme=theme, brand=brand, brand_kit=brand_kit, auto_brand_kit=False)
+    d = Deck(theme=theme, brand=brand, brand_kit=brand_kit, auto_brand_kit=False,
+             palette_override=palette_override, default_background=default_background)
+    bg_map = {int(k): v for k, v in (slide_backgrounds or {}).items()}
 
-    for s in slides:
+    for slide_idx, s in enumerate(slides, start=1):
         kind = s["kind"]
         title = s["title"]
         notes = s["notes"]
@@ -432,35 +435,113 @@ def build_from_md(md_text, theme_name="corporate", brand="", *, mode=None, brand
                 bullets = [sub[0] for sub in s["subs"]]
             d.bullets(title, bullets or [title], notes=notes)
 
+        # apply per-slide background if mapped (1-based slide_idx)
+        if slide_idx in bg_map and d.prs.slides:
+            d.set_slide_background(d.prs.slides[-1], bg_map[slide_idx])
+
     return d
 
 
-def render_markdown_to_pptx(in_path, out_path, *, theme=None, mode=None, brand="", brand_file=None):
-    """Programmatic entry. Used by pptx_cli.cmd_render."""
+def render_markdown_to_pptx(in_path, out_path, *, theme=None, mode=None, brand="",
+                            brand_file=None, colors=None, background=None,
+                            backgrounds=None, target_slides=None):
+    """Programmatic entry. Used by pptx_cli.cmd_render.
+
+    colors          : dict of palette overrides {bg, ink, muted, accent, accent2, font}.
+    background      : default background image path applied to every slide.
+    backgrounds     : dict {1: path, 3: path, ...} per-slide overrides (1-based).
+    target_slides   : int — warn if rendered slide count differs.
+    """
     md = Path(in_path).read_text(encoding="utf-8")
     fm = _parse_frontmatter(md)
     md_body = fm["body"]
-    chosen_theme = theme or fm["meta"].get("theme") or "corporate-default"
-    chosen_brand = brand or fm["meta"].get("brand", "")
+    meta = fm["meta"]
+
+    chosen_theme = theme or meta.get("theme") or "corporate-default"
+    chosen_brand = brand or meta.get("brand", "")
+
+    # palette overrides: CLI flag wins over frontmatter
+    fm_colors = meta.get("colors") if isinstance(meta.get("colors"), dict) else None
+    palette = dict(fm_colors) if fm_colors else {}
+    if colors:
+        palette.update(colors)
+
+    # backgrounds: CLI default beats frontmatter default; per-slide map merges
+    fm_bg = meta.get("backgrounds") if isinstance(meta.get("backgrounds"), dict) else None
+    bg_map = {}
+    if fm_bg:
+        for k, v in fm_bg.items():
+            if k == "default":
+                continue
+            try:
+                bg_map[int(k)] = v
+            except (TypeError, ValueError):
+                pass
+    if backgrounds:
+        bg_map.update({int(k): v for k, v in backgrounds.items()})
+    default_bg = background or (fm_bg.get("default") if fm_bg else None)
+
+    # slide count target: CLI wins
+    fm_slides = meta.get("slides")
+    try:
+        target = int(target_slides) if target_slides is not None else (int(fm_slides) if fm_slides else None)
+    except (TypeError, ValueError):
+        target = None
+
     from helpers.brand_kit import load_brand_kit
     kit = load_brand_kit(brand_file)
     deck = build_from_md(md_body, theme_name=chosen_theme, brand=chosen_brand,
-                         mode=mode, brand_kit=kit)
-    return deck.save(str(out_path))
+                         mode=mode, brand_kit=kit, palette_override=palette,
+                         default_background=default_bg, slide_backgrounds=bg_map)
+    saved = deck.save(str(out_path))
+
+    actual = len(deck.prs.slides)
+    if target is not None and actual != target:
+        print(f"warn: target was {target} slides, rendered {actual}")
+    return saved
 
 
 _FM_RE = re.compile(r"^---\s*\n(.*?)\n---\s*\n", re.DOTALL)
 
 
 def _parse_frontmatter(md):
+    """Parse YAML-subset frontmatter. Supports flat keys and dotted nested keys
+    (e.g. `colors.accent: "#FFF"`, `backgrounds.3: path`) which build into nested
+    dicts. Indented `key: value` lines under a parent key also nest.
+    """
     m = _FM_RE.match(md)
     if not m:
         return {"meta": {}, "body": md}
+
     meta = {}
-    for line in m.group(1).splitlines():
-        if ":" in line:
-            k, v = line.split(":", 1)
-            meta[k.strip()] = v.strip().strip('"').strip("'")
+    parent = None
+    for raw in m.group(1).splitlines():
+        if not raw.strip() or raw.strip().startswith("#"):
+            continue
+        # indented child of previous parent? (2+ leading spaces)
+        if parent and (raw.startswith("  ") or raw.startswith("\t")):
+            stripped = raw.strip()
+            if ":" in stripped:
+                k, v = stripped.split(":", 1)
+                meta.setdefault(parent, {})[k.strip()] = v.strip().strip('"').strip("'")
+            continue
+        parent = None
+        if ":" not in raw:
+            continue
+        k, v = raw.split(":", 1)
+        key = k.strip()
+        val = v.strip().strip('"').strip("'")
+        # parent header line: `colors:` with empty value -> open child block
+        if not val:
+            parent = key
+            meta.setdefault(parent, {})
+            continue
+        # dotted nested form: `colors.accent: "#FFF"`
+        if "." in key:
+            head, sub = key.split(".", 1)
+            meta.setdefault(head, {})[sub.strip()] = val
+        else:
+            meta[key] = val
     return {"meta": meta, "body": md[m.end():]}
 
 

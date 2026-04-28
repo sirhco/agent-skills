@@ -50,12 +50,20 @@ pptx render <input.md> [-o PATH] [--theme NAME] [--mode light|dark]
 | `--mode` | `light` or `dark`. Flips bg/ink for compatible themes. |
 | `--brand` | Footer-left brand string (overrides frontmatter `brand:`). |
 | `--brand-file` | Path to a `brand.toml`. Default: `./brand.toml` if present. |
+| `--colors` | Inline palette override. Format: `"bg=#FFF,accent=#0E8388,ink=#0A2540"`. Keys: `bg`, `ink`, `muted`, `accent`, `accent2`, `font`. Wins over theme + frontmatter `colors:`. |
+| `--bg` | Path to a default background image used on every slide. Wins over theme/`brand.toml` `background_image`. |
+| `--slide-bg` | Per-slide background overrides. Format: `"3=cover.png,5=section.jpg"`. Indices are 1-based. Replaces default for that slide. |
+| `--target-slides` | Warn if the rendered slide count differs from N. Doesn't abort the build. |
 | `--watch` | Rebuild on file change. Polls every 0.5s. Ctrl-C stops. |
 | `--open` | Open the pptx in default viewer after build. |
 
 ```bash
 pptx render outline.md                           # → outline.pptx
 pptx render outline.md --theme stripe --mode dark
+pptx render outline.md --colors "accent=#0E8388,bg=#FFF"
+pptx render outline.md --bg ./assets/bg.png
+pptx render outline.md --slide-bg "1=cover.png,5=closing.jpg"
+pptx render outline.md --target-slides 10        # warn if outline drifts
 pptx render outline.md --watch --open            # live-preview loop
 pptx render outline.md --brand-file ./acme-brand.toml
 ```

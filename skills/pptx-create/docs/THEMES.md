@@ -56,6 +56,8 @@ caption_size = 11
 logo_path = "/abs/path/logo.png"
 logo_position = "tr"            # tl | tr | bl | br
 footer_text = "Acme Confidential · 2026"
+background_image = "/abs/path/bg.png"
+background_image_position = "cover"   # cover | contain
 ```
 
 Only `[colors]` and `mode` are strictly required. Everything else has sensible defaults.
@@ -91,6 +93,8 @@ logo_path = "/Users/me/work/acme-logo.png"
 logo_position = "tr"
 footer_text = "Acme Confidential"
 font = "Calibri"
+background_image = "/Users/me/work/bg.png"
+background_image_position = "cover"
 ```
 
 Precedence (lowest to highest):

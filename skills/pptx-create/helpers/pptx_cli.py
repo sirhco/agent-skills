@@ -84,6 +84,31 @@ def cmd_render(args: argparse.Namespace) -> int:
 
     brand_file = getattr(args, "brand_file", None)
 
+    # parse --colors "bg=#FFF,accent=#0E8388"
+    colors_arg = getattr(args, "colors", None)
+    colors = {}
+    if colors_arg:
+        for piece in colors_arg.split(","):
+            piece = piece.strip()
+            if "=" not in piece:
+                continue
+            k, v = piece.split("=", 1)
+            colors[k.strip()] = v.strip()
+
+    # parse --slide-bg "3=path,5=other.png"
+    slide_bg_arg = getattr(args, "slide_bg", None)
+    slide_bgs = {}
+    if slide_bg_arg:
+        for piece in slide_bg_arg.split(","):
+            piece = piece.strip()
+            if "=" not in piece:
+                continue
+            k, v = piece.split("=", 1)
+            try:
+                slide_bgs[int(k.strip())] = v.strip()
+            except ValueError:
+                pass
+
     def build_once() -> int:
         try:
             render_markdown_to_pptx(
@@ -93,6 +118,10 @@ def cmd_render(args: argparse.Namespace) -> int:
                 mode=args.mode,
                 brand=args.brand,
                 brand_file=brand_file,
+                colors=colors or None,
+                background=getattr(args, "bg", None),
+                backgrounds=slide_bgs or None,
+                target_slides=getattr(args, "target_slides", None),
             )
         except Exception as e:
             print(f"error: {e}", file=sys.stderr)
@@ -227,6 +256,10 @@ def build_parser() -> argparse.ArgumentParser:
     sp.add_argument("--mode", choices=["light", "dark"], help="theme mode")
     sp.add_argument("--brand", help="brand string (footer left)")
     sp.add_argument("--brand-file", help="path to brand.toml (default: ./brand.toml if present)")
+    sp.add_argument("--colors", help='palette overrides, e.g. "bg=#FFF,accent=#0E8388,ink=#0A2540"')
+    sp.add_argument("--bg", help="default background image applied to every slide")
+    sp.add_argument("--slide-bg", help='per-slide background, e.g. "3=cover.png,5=section.jpg" (1-based)')
+    sp.add_argument("--target-slides", type=int, help="warn if rendered slide count differs from N")
     sp.add_argument("--watch", action="store_true", help="rebuild on file change")
     sp.add_argument("--open", action="store_true", help="open in default app after build")
     sp.set_defaults(func=cmd_render)

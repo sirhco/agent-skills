@@ -10,12 +10,21 @@ YAML between `---` fences, top of file. Sets deck-wide defaults that flags can s
 ---
 theme: stripe
 brand: "Acme · 2026"
+slides: 10                       # target slide count — warns on mismatch
 author: chris@acme.com
 date: 2026-04-28
+colors:                          # palette overrides — applied over theme
+  accent: "#0E8388"
+  bg: "#FFFFFF"
+  ink: "#0A2540"
+backgrounds:                     # background images
+  default: assets/bg.png         # used on every slide unless overridden
+  1: assets/cover.png            # per-slide override (1-based)
+  5: assets/section.jpg
 ---
 ```
 
-Recognized keys: `theme`, `brand`. Others stored but unused (free-form metadata).
+Recognized keys: `theme`, `brand`, `slides`, `colors.<key>`, `backgrounds.<n|default>`. The parser also accepts dotted-flat form (`colors.accent: "#0E8388"`) for tools that don't write nested YAML. Unknown keys are stored but ignored (free-form metadata for `author`, `date`, etc).
 
 ## Speaker notes
 

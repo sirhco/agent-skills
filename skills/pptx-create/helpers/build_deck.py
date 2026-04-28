@@ -86,6 +86,31 @@ def add_notes(slide, text):
         slide.notes_slide.notes_text_frame.text = text
 
 
+def _set_pic_descr(pic, value):
+    """Set the descr (alt text) on a Picture or Shape regardless of element kind."""
+    try:
+        # Picture uses nvPicPr; Shape uses nvSpPr
+        for attr in ("nvPicPr", "nvSpPr"):
+            holder = getattr(pic.element, attr, None)
+            if holder is not None:
+                holder.cNvPr.set("descr", value)
+                return True
+    except Exception:
+        pass
+    return False
+
+
+def _get_pic_descr(shape):
+    try:
+        for attr in ("nvPicPr", "nvSpPr"):
+            holder = getattr(shape.element, attr, None)
+            if holder is not None:
+                return holder.cNvPr.get("descr") or ""
+    except Exception:
+        pass
+    return ""
+
+
 def add_footer(slide, prs, theme, page_num=None, total=None, brand=""):
     """Bottom strip: brand left, page count right."""
     if brand:
@@ -101,12 +126,20 @@ def add_footer(slide, prs, theme, page_num=None, total=None, brand=""):
 # ---------- Deck class ----------
 
 class Deck:
-    def __init__(self, theme=None, brand="", brand_kit=None, auto_brand_kit=True):
+    PALETTE_KEYS = ("bg", "ink", "muted", "accent", "accent2")
+
+    def __init__(self, theme=None, brand="", brand_kit=None, auto_brand_kit=True,
+                 palette_override=None, default_background=None):
         """
-        theme       : theme dict (from get_theme).
-        brand       : footer-left text. Overridden by brand_kit['footer_text'] if set.
-        brand_kit   : dict (logo_path, accent, footer_text, font, logo_position).
-                      None + auto_brand_kit=True -> load ./brand.toml if present.
+        theme              : theme dict (from get_theme).
+        brand              : footer-left text. Overridden by brand_kit['footer_text'] if set.
+        brand_kit          : dict (logo_path, accent, footer_text, font, logo_position,
+                             background_image, background_image_position).
+                             None + auto_brand_kit=True -> load ./brand.toml if present.
+        palette_override   : dict {bg, ink, muted, accent, accent2, font} — hex strings.
+                             Highest precedence over theme + brand_kit colors.
+        default_background : path to a default background image used on every slide.
+                             Overrides theme/brand_kit background_image.
         """
         self.prs = Presentation()
         self.prs.slide_width = Inches(13.333)
@@ -120,9 +153,9 @@ class Deck:
         brand_kit = brand_kit or {}
         self.theme = dict(theme) if theme else dict(CORPORATE_DEFAULT)
         # apply brand_kit overrides to theme
+        from themes.themes import _rgb
         if brand_kit.get("accent"):
             try:
-                from themes.themes import _rgb
                 self.theme["accent"] = _rgb(brand_kit["accent"])
             except Exception:
                 pass
@@ -131,6 +164,27 @@ class Deck:
             self.theme["logo_position"] = brand_kit.get("logo_position", "tr")
         if brand_kit.get("font"):
             self.theme["font"] = brand_kit["font"]
+        if brand_kit.get("background_image"):
+            self.theme["background_image"] = brand_kit["background_image"]
+            self.theme["background_image_position"] = brand_kit.get("background_image_position", "cover")
+
+        # palette override: highest precedence
+        if palette_override:
+            for k in self.PALETTE_KEYS:
+                v = palette_override.get(k)
+                if v:
+                    try:
+                        self.theme[k] = _rgb(v) if isinstance(v, str) else v
+                    except Exception:
+                        pass
+            if palette_override.get("font"):
+                self.theme["font"] = palette_override["font"]
+
+        # default background image: explicit arg beats theme/brand_kit
+        if default_background:
+            self.theme["background_image"] = default_background
+            self.theme.setdefault("background_image_position", "cover")
+
         self.brand = brand_kit.get("footer_text") or brand or self.theme.get("footer_text", "")
         self.brand_kit = brand_kit
         self._slide_index = 0
@@ -142,6 +196,17 @@ class Deck:
     def _new(self, with_footer=True):
         slide = self.prs.slides.add_slide(self.prs.slide_layouts[6])
         add_bg(slide, self.prs, self.theme["bg"])
+        # default background image (drawn over solid bg, under content)
+        bg_path = self.theme.get("background_image")
+        if bg_path and os.path.exists(bg_path):
+            try:
+                pic = self._add_fitted_picture(
+                    slide, bg_path, 0, 0, self.prs.slide_width, self.prs.slide_height,
+                    fit=self.theme.get("background_image_position", "cover"),
+                )
+                _set_pic_descr(pic, "_pptx_create_default_bg")
+            except Exception:
+                pass
         self._slide_index += 1
         if with_footer and self._slide_index > 1:
             add_footer(slide, self.prs, self.theme,
@@ -149,6 +214,32 @@ class Deck:
             self._draw_logo(slide)
             self._draw_progress(slide)
         return slide
+
+    def set_slide_background(self, slide, image_path, position="cover"):
+        """Replace a slide's background with image_path. Strips any prior default
+        background image and inserts new picture at z-bottom."""
+        if not image_path or not os.path.exists(image_path):
+            print(f"warn: background image not found: {image_path}")
+            return None
+        # strip prior default bg pictures (tagged with sentinel)
+        for shape in list(slide.shapes):
+            if _get_pic_descr(shape) == "_pptx_create_default_bg":
+                shape.element.getparent().remove(shape.element)
+        # add new picture
+        try:
+            pic = self._add_fitted_picture(
+                slide, image_path, 0, 0, self.prs.slide_width, self.prs.slide_height,
+                fit=position,
+            )
+            # move picture to back (just above grpSpPr at index 2)
+            spTree = slide.shapes._spTree
+            spTree.remove(pic._element)
+            spTree.insert(2, pic._element)
+            _set_pic_descr(pic, "_pptx_create_default_bg")
+            return pic
+        except Exception as e:
+            print(f"warn: set_slide_background failed: {e}")
+            return None
 
     def _draw_progress(self, slide):
         """Section dots in footer center. Active dot uses accent."""

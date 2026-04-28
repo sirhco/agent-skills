@@ -8,13 +8,15 @@ Two paths: (A) you have the skill installed at `~/.claude/skills/pptx-create/`, 
 
 Pattern: ask user for the **5 inputs**, render with the CLI, verify, iterate.
 
-### 5 inputs to elicit
+### 7 inputs to elicit
 
 1. **Topic + audience** — what's the deck about, who's in the room?
 2. **Mode** — corporate (board, customer, internal data review) or pitch (investor, launch, hero stat)?
-3. **Slide count + outline** — rough TOC. Offer a starter: `pptx new <template>`.
-4. **Brand** — theme name (`pptx themes`) + optional `brand.toml` (logo, accent, footer).
-5. **Output path** — default `./deck.pptx`.
+3. **Slide count** — exact target if user has one (`--target-slides N` warns on drift).
+4. **Theme + colors** — built-in theme (`pptx themes`) OR explicit hex codes for `bg / ink / accent`.
+5. **Backgrounds** — one image for every slide, OR per-slide overrides with file paths.
+6. **Logo + brand text** — file path + position (tl/tr/bl/br) + footer string.
+7. **Output path** — default `./deck.pptx`.
 
 If user gives a vague request ("build a Q3 deck"), ask the missing 2-3 only. Don't interrogate.
 
@@ -41,6 +43,10 @@ User asks for tweaks. Recipes:
 | "Use our brand colors" | Write `brand.toml` with `accent`, `logo_path`, `footer_text`. Re-render. |
 | "Make it dark" | `--mode dark` (compatible themes flip bg/ink). |
 | "Make it pitch-style" | Switch theme to `pitch-noir`/`pitch-electric`. Restructure: one idea per slide, big stats. |
+| "Use accent #0E8388" | `--colors "accent=#0E8388"` (or frontmatter `colors.accent`). |
+| "Background on every slide is /path/bg.png" | `--bg /path/bg.png`. |
+| "Cover image on slide 1, closing on slide 7" | `--slide-bg "1=cover.png,7=closing.png"`. |
+| "Make it 10 slides" | `--target-slides 10` (warns if outline drifts; doesn't abort). |
 | "Add a chart for revenue" | Insert `# Revenue [chart]` with `## categories:` and `## series ...:` lines. |
 | "Add company logo" | `brand.toml` → `logo_path = "/abs/path/logo.png"`. |
 | "Slide 5 needs work" | Edit only slide 5 in outline.md, re-render. Don't rebuild everything. |

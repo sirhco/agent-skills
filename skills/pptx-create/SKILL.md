@@ -61,7 +61,10 @@ User says "make it X" → recipes in `docs/CUSTOMIZATION.md`. Hot ones:
 | Request | Action |
 |---|---|
 | "more visual" | swap `[bullets]` → `[metric_grid]` / `[chart]` / `[big_stat]` |
+| "use accent #X" | `--colors "accent=#X"` (or frontmatter `colors.accent`) |
 | "use our brand" | write `brand.toml` (accent / logo / footer) |
+| "background image at /path" | `--bg /path` (or `--slide-bg "N=path"` for one slide) |
+| "10 slides" | `--target-slides 10` (warn-only sanity check) |
 | "make it dark" | `--mode dark` |
 | "convert to pitch" | swap theme + restructure (1 idea/slide, big stats) |
 | "shorter" | combine bullets into `[two-col]`, drop dividers |
