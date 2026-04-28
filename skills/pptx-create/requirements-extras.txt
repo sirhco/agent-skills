@@ -1,0 +1,9 @@
+# Optional extras. Install with: pip install -r requirements-extras.txt
+# - pygments: syntax highlighting on `code` slides
+# - cairosvg: render SVG icons as PNG (otherwise bundled PNGs are used)
+# - watchdog: efficient file-watch backend for `pptx render --watch`
+# - tomli: TOML reader on Python <3.11 (3.11+ uses stdlib tomllib)
+pygments>=2.15.0
+cairosvg>=2.7.0
+watchdog>=3.0.0
+tomli>=2.0.0; python_version<"3.11"

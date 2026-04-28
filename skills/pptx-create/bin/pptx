@@ -1,0 +1,14 @@
+#!/usr/bin/env python3
+"""pptx CLI entry point. Add skills/pptx-create/bin/ to PATH."""
+import os
+import sys
+from pathlib import Path
+
+_HERE = Path(__file__).resolve().parent
+_ROOT = _HERE.parent
+sys.path.insert(0, str(_ROOT))
+
+from helpers.pptx_cli import main
+
+if __name__ == "__main__":
+    raise SystemExit(main())

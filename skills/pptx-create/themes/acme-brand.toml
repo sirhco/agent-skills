@@ -1,0 +1,17 @@
+# Example brand theme. Extends stripe with custom accent + footer.
+name = "acme-brand"
+extends = "stripe"
+mode = "corporate"
+
+[colors]
+accent = "#0E8388"
+accent2 = "#E3F4F4"
+
+[type]
+font = "Calibri"
+title_size = 36
+body_size = 18
+
+[brand]
+footer_text = "Acme Corp · Confidential"
+logo_position = "tr"

@@ -186,23 +186,151 @@ THEMES = {
 }
 
 
-def get_theme(name):
+_TOML_LOADED = False
+
+
+def _load_toml_themes():
+    """Read themes/*.toml, resolve `extends`, merge into THEMES."""
+    global _TOML_LOADED
+    if _TOML_LOADED:
+        return
+    _TOML_LOADED = True
+
+    try:
+        import tomllib  # py 3.11+
+    except ImportError:
+        try:
+            import tomli as tomllib  # type: ignore
+        except ImportError:
+            return  # silently skip if no TOML reader
+
+    from pathlib import Path
+    here = Path(__file__).resolve().parent
+    for toml in sorted(here.glob("*.toml")):
+        try:
+            data = tomllib.loads(toml.read_text(encoding="utf-8"))
+        except Exception as e:
+            print(f"warn: failed to parse {toml.name}: {e}")
+            continue
+        name = data.get("name") or toml.stem
+        base = {}
+        ext = data.get("extends")
+        if ext and ext in THEMES:
+            base = dict(THEMES[ext])
+        colors = data.get("colors", {})
+        typ = data.get("type", {})
+        brand = data.get("brand", {})
+        merged = {
+            "name": name,
+            "mode": data.get("mode", base.get("mode", "corporate")),
+            "bg":      _rgb(colors.get("bg",      _hex(base.get("bg",      "#FFFFFF")))),
+            "ink":     _rgb(colors.get("ink",     _hex(base.get("ink",     "#1A1A1A")))),
+            "muted":   _rgb(colors.get("muted",   _hex(base.get("muted",   "#666666")))),
+            "accent":  _rgb(colors.get("accent",  _hex(base.get("accent",  "#0B5FFF")))),
+            "accent2": _rgb(colors.get("accent2", _hex(base.get("accent2", "#E5EEFF")))),
+            "font":    typ.get("font", base.get("font", "Calibri")),
+        }
+        if brand.get("logo_path"):
+            merged["logo_path"] = brand["logo_path"]
+            merged["logo_position"] = brand.get("logo_position", "tr")
+        if brand.get("footer_text"):
+            merged["footer_text"] = brand["footer_text"]
+        if typ.get("font_path"):
+            merged["font_path"] = typ["font_path"]
+        THEMES[name] = merged
+
+
+def _hex(rgb):
+    if isinstance(rgb, str):
+        return rgb
+    if hasattr(rgb, "rgb"):
+        # RGBColor; format as hex
+        try:
+            r = int(str(rgb), 16)
+            return "#{:06X}".format(r)
+        except Exception:
+            return "#000000"
+    return "#000000"
+
+
+def _dark_variant(theme):
+    """Swap bg/ink for a dark counterpart of a light theme."""
+    out = dict(theme)
+    out["bg"], out["ink"] = theme["ink"], theme["bg"]
+    # darken accent2 for dark bg
+    out["accent2"] = _rgb("#1A1A1A")
+    out["mode_variant"] = "dark"
+    return out
+
+
+def _light_variant(theme):
+    out = dict(theme)
+    out["bg"], out["ink"] = theme["ink"], theme["bg"]
+    out["accent2"] = _rgb("#F0F0F0")
+    out["mode_variant"] = "light"
+    return out
+
+
+def _is_dark_theme(theme):
+    """Heuristic: bg luminance < 0.5 -> already dark."""
+    bg = theme["bg"]
+    try:
+        r, g, b = int(str(bg)[0:2], 16), int(str(bg)[2:4], 16), int(str(bg)[4:6], 16)
+    except Exception:
+        return False
+    luma = (0.299 * r + 0.587 * g + 0.114 * b) / 255.0
+    return luma < 0.5
+
+
+def get_theme(name, *, mode=None, brand=None):
+    """Return theme dict by name. mode='dark'|'light' flips variant. brand= dict overrides accent/logo/footer."""
+    _load_toml_themes()
     if name not in THEMES:
-        raise KeyError(f"unknown theme: {name!r}. options: {sorted(THEMES)}")
-    return THEMES[name]
+        raise KeyError(f"unknown theme: {name!r}. options: {sorted(set(t['name'] for t in THEMES.values()))}")
+    theme = dict(THEMES[name])
+    if mode == "dark" and not _is_dark_theme(theme):
+        theme = _dark_variant(theme)
+    elif mode == "light" and _is_dark_theme(theme):
+        theme = _light_variant(theme)
+    if brand:
+        if brand.get("accent"):
+            theme["accent"] = _rgb(brand["accent"])
+        if brand.get("logo_path"):
+            theme["logo_path"] = brand["logo_path"]
+            theme["logo_position"] = brand.get("logo_position", "tr")
+        if brand.get("footer_text"):
+            theme["footer_text"] = brand["footer_text"]
+        if brand.get("font"):
+            theme["font"] = brand["font"]
+    return theme
 
 
 def list_themes():
-    out = {"corporate": [], "pitch": []}
+    """Return sorted list of unique theme names."""
+    _load_toml_themes()
     seen = set()
+    out = []
     for k, v in THEMES.items():
         if v["name"] in seen:
             continue
         seen.add(v["name"])
-        out[v["mode"]].append(v["name"])
-    return out
+        out.append(v["name"])
+    return sorted(out)
+
+
+def list_themes_detailed():
+    """Return list of dicts: {name, mode}."""
+    _load_toml_themes()
+    seen = set()
+    out = []
+    for k, v in THEMES.items():
+        if v["name"] in seen:
+            continue
+        seen.add(v["name"])
+        out.append({"name": v["name"], "mode": v["mode"]})
+    return sorted(out, key=lambda d: (d["mode"], d["name"]))
 
 
 if __name__ == "__main__":
     import json
-    print(json.dumps(list_themes(), indent=2))
+    print(json.dumps(list_themes_detailed(), indent=2))

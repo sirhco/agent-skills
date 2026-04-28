@@ -127,14 +127,14 @@ def render_pdf_optional(pptx_path, out_dir=None):
     return out_dir / (pptx_path.stem + ".pdf")
 
 
-def main():
+def main(argv=None):
     ap = argparse.ArgumentParser()
     ap.add_argument("pptx")
     ap.add_argument("--json", action="store_true", help="JSON output")
     ap.add_argument("--notes", action="store_true", help="include speaker notes")
     ap.add_argument("--render-pdf", action="store_true",
                     help="optional PDF via LibreOffice — skipped if not installed")
-    args = ap.parse_args()
+    args = ap.parse_args(argv)
 
     report = inspect(args.pptx, include_notes=args.notes)
     if args.json:
@@ -146,7 +146,8 @@ def main():
         pdf = render_pdf_optional(args.pptx)
         if pdf:
             print(f"\nPDF: {pdf}", file=sys.stderr)
+    return 0
 
 
 if __name__ == "__main__":
-    main()
+    sys.exit(main())

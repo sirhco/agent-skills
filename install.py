@@ -33,6 +33,11 @@ class Skill:
         req = self.path / "requirements.txt"
         return req if req.is_file() else None
 
+    @property
+    def requirements_extras(self) -> Path | None:
+        req = self.path / "requirements-extras.txt"
+        return req if req.is_file() else None
+
 
 def discover_skills() -> list[Skill]:
     skills: list[Skill] = []
@@ -183,18 +188,23 @@ def install_skill(skill: Skill, target_dir: Path, *, copy: bool, force: bool, no
         method = create_link(src, dst, copy)
         print(f"+ {skill.name} ({method}) -> {dst}")
 
-    if not no_deps and skill.requirements:
-        maybe_install_deps(skill)
+    if not no_deps:
+        if skill.requirements:
+            maybe_install_deps(skill, skill.requirements, kind="core", default_yes=True)
+        if skill.requirements_extras:
+            maybe_install_deps(skill, skill.requirements_extras, kind="extras", default_yes=False)
 
 
-def maybe_install_deps(skill: Skill) -> None:
-    req = skill.requirements
-    assert req is not None
+def maybe_install_deps(skill: Skill, req: Path, *, kind: str, default_yes: bool) -> None:
     contents = req.read_text(encoding="utf-8").strip()
-    print(f"  skill '{skill.name}' declares deps:")
+    print(f"  skill '{skill.name}' {kind} deps ({req.name}):")
     for line in contents.splitlines():
-        print(f"    {line}")
-    if not prompt_yes_no(f"  install via 'pip install --user -r {req.name}'?"):
+        if line.strip() and not line.lstrip().startswith("#"):
+            print(f"    {line}")
+    if not prompt_yes_no(
+        f"  install via 'pip install --user -r {req.name}'?",
+        default_yes=default_yes,
+    ):
         print(f"  skipped. run manually: {sys.executable} -m pip install --user -r {req}")
         return
     cmd = [sys.executable, "-m", "pip", "install", "--user", "-r", str(req)]
