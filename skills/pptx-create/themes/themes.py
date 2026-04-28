@@ -235,6 +235,9 @@ def _load_toml_themes():
             merged["logo_position"] = brand.get("logo_position", "tr")
         if brand.get("footer_text"):
             merged["footer_text"] = brand["footer_text"]
+        if brand.get("background_image"):
+            merged["background_image"] = brand["background_image"]
+            merged["background_image_position"] = brand.get("background_image_position", "cover")
         if typ.get("font_path"):
             merged["font_path"] = typ["font_path"]
         THEMES[name] = merged

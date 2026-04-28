@@ -60,7 +60,29 @@ pptx render outline.md
 
 ### "Use our brand colors"
 
-Write `brand.toml` next to the markdown file:
+Three ways, lowest to highest precedence:
+
+**A. CLI flag (one-shot)**
+
+```bash
+pptx render outline.md --colors "accent=#0E8388,bg=#FFFFFF,ink=#0A2540"
+```
+
+Keys accepted: `bg`, `ink`, `muted`, `accent`, `accent2`, `font`. Comma-separated, no spaces around `=`.
+
+**B. Frontmatter (per-deck)**
+
+```yaml
+---
+theme: stripe
+colors:
+  accent: "#0E8388"
+  bg: "#FFFFFF"
+  ink: "#0A2540"
+---
+```
+
+**C. brand.toml (per-project, every deck in dir)**
 
 ```toml
 accent = "#0E8388"
@@ -69,13 +91,66 @@ footer_text = "Acme Confidential · 2026"
 # logo_position = "tr"
 ```
 
-Re-render — `brand.toml` is auto-discovered:
+Auto-discovered when running from the same directory. Or `--brand-file path/to/brand.toml`.
+
+User passes only hex codes? Use **A** for the speed path.
+
+### "Use this background image"
+
+**A. Single bg for every slide (CLI)**
 
 ```bash
-pptx render outline.md
+pptx render outline.md --bg /path/to/bg.png
 ```
 
-User passes hex codes only? Drop them straight in.
+**B. Per-slide overrides (CLI)**
+
+```bash
+pptx render outline.md --slide-bg "1=cover.png,3=section.jpg,5=closing.png"
+```
+
+Slide indices are 1-based. Per-slide overrides replace the default; they do not stack.
+
+**C. Frontmatter**
+
+```yaml
+---
+theme: stripe
+backgrounds:
+  default: assets/bg.png
+  1: assets/cover.png
+  5: assets/closing.png
+---
+```
+
+**D. brand.toml (every deck in dir)**
+
+```toml
+background_image = "/abs/path/bg.png"
+background_image_position = "cover"   # cover | contain
+```
+
+**E. Theme TOML (when bundling with a theme)**
+
+```toml
+# themes/acme-brand.toml
+extends = "stripe"
+[brand]
+background_image = "/abs/path/bg.png"
+background_image_position = "cover"
+```
+
+Position semantics: `cover` fills the slide and crops the image; `contain` letterboxes it. Default is `cover`.
+
+### "Target N slides"
+
+```bash
+pptx render outline.md --target-slides 10
+```
+
+Or frontmatter `slides: 10`. The CLI prints `warn: target was 10 slides, rendered 12` and **does not abort** — it surfaces drift so you can decide whether the outline matches the brief.
+
+When user gave a slide count up front, capture it as a check, not a hard limit. If their outline naturally lands at a different count, ask: cut to target, or keep as-is?
 
 ### "Add our logo"
 

@@ -12,15 +12,17 @@ Don't skip steps. Each one cuts a class of failures.
 
 ## 1. Discover
 
-Ask for the **5 inputs** below. If the user gave any of them in the original prompt, don't re-ask. Collapse to the gaps.
+Ask for the **7 inputs** below. If the user gave any of them in the original prompt, don't re-ask. Collapse to the gaps.
 
 | # | Input | What you actually need | Default if user shrugs |
 |---|---|---|---|
 | 1 | Topic + audience | Subject of the deck + who's in the room | Ask — don't guess |
 | 2 | Mode | corporate / pitch | corporate (safer) |
-| 3 | Slide count + outline | Rough TOC | Offer template via `pptx new` |
-| 4 | Brand | Theme + optional `brand.toml` | `corporate-default` if no brand |
-| 5 | Output path | Where to save | `./deck.pptx` |
+| 3 | Slide count | How many slides | Offer template via `pptx new` |
+| 4 | Theme + colors | Built-in theme name OR explicit hex codes | `corporate-default` if no brand |
+| 5 | Backgrounds | Any background image(s) and paths (default + per-slide) | None |
+| 6 | Logo + brand text | Optional logo path + footer text | None |
+| 7 | Output path | Where to save | `./deck.pptx` |
 
 ### Discovery script (paste-grade)
 
@@ -28,8 +30,22 @@ Ask for the **5 inputs** below. If the user gave any of them in the original pro
 > 1. Who's the audience? (board, customer, prospect, team, investor)
 > 2. Tone — corporate (data-dense, structured) or pitch (bold, editorial)?
 > 3. Roughly how many slides, or want me to start from a template (qbr / sales / pitch / allhands / postmortem)?
-> 4. Brand colors / logo? Or use a built-in theme?
-> 5. Where to save the file?"
+> 4. Theme — pick a built-in (`pptx themes`) or give me hex codes for accent / bg / ink?
+> 5. Any background image(s)? Either one for every slide or specific slides — give me the file path(s).
+> 6. Logo or footer text I should include?
+> 7. Where to save the file?"
+
+### Translating user answers to render flags
+
+| User says | Action |
+|---|---|
+| "use #0E8388 as the accent" | `--colors "accent=#0E8388"` (or frontmatter `colors.accent: "#0E8388"`) |
+| "white bg with navy text" | `--colors "bg=#FFFFFF,ink=#0A2540"` |
+| "10 slides" | `--target-slides 10` (or frontmatter `slides: 10`) |
+| "background image at /Users/me/bg.png on every slide" | `--bg /Users/me/bg.png` |
+| "use cover.png on slide 1 and section.jpg on slide 5" | `--slide-bg "1=cover.png,5=section.jpg"` |
+| "our logo is /Users/me/logo.png in the top-right" | `brand.toml` → `logo_path` + `logo_position = "tr"` |
+| "footer should say Confidential 2026" | `--brand "Confidential 2026"` (or `brand.toml` → `footer_text`) |
 
 If the user already gave you obvious answers ("Q3 board update for Acme using their teal accent"), skip to confirming the missing 1-2.
 
