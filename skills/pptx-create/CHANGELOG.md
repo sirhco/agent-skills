@@ -7,6 +7,8 @@ Format: [Keep a Changelog](https://keepachangelog.com/en/1.1.0/). Versioning: [S
 ## [Unreleased]
 
 ### Added
+- **Sample-filled default-data templates** for the 5 most common deck use cases: `pitch-sample` (10-slide VC pitch), `exec-update` (5-slide board readout), `case-study` (6-slide client ROI), `training` (12-slide beginner training), `data-insight` (1-slide chart). Each ships with realistic placeholder content (numbers, names, copy) so the user sees a working example, not a blank skeleton.
+- **`docs/PROMPTS.md`** — library of canned user prompts organized by use case (10 categories), each mapped to a default template, theme, and slide count. Includes a "vague request → offer menu" pattern for Claude when user gives no specifics, plus prompt-engineering tips (structure / visuals / constraints / context).
 - **First-class user-specifiable controls** for theme colors, slide count, and background images:
   - `--colors "bg=#FFF,accent=#0E8388,ink=#0A2540"` CLI flag for inline palette overrides (also frontmatter `colors:` block).
   - `--bg PATH` CLI flag for default background image on every slide; `--slide-bg "1=path,5=other"` for per-slide overrides (also frontmatter `backgrounds:` block).

@@ -61,6 +61,7 @@ open my-deck.pptx                            # macOS; PowerPoint takes it from h
 | [`SKILL.md`](SKILL.md) | You're an LLM agent — quickstart + decision flow. |
 | [`REFERENCE.md`](REFERENCE.md) | Full API + style rules + healthcare conventions. |
 | [`docs/AGENT-WORKFLOW.md`](docs/AGENT-WORKFLOW.md) | Driving this skill from Claude (or any tool-using LLM) — discovery, build loop, iteration. |
+| [`docs/PROMPTS.md`](docs/PROMPTS.md) | Canned user prompts by use case (pitch / exec / case study / training / data) + prompt tips. |
 | [`docs/CUSTOMIZATION.md`](docs/CUSTOMIZATION.md) | Recipes for "make it X" — the day-to-day Claude playbook. |
 | [`docs/TUTORIAL.md`](docs/TUTORIAL.md) | First time — 5-minute walkthrough. |
 | [`docs/MARKDOWN.md`](docs/MARKDOWN.md) | Writing decks in markdown — full syntax + per-kind examples. |

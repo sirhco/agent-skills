@@ -196,6 +196,33 @@ Don't generate a fully-fabricated deck. Instead:
 
 This way they get useful structure without fake data, and the iteration loop is short.
 
+## Vague request → offer the prompt menu
+
+When the user says only "make me a slide deck" with no specifics, present the categories from `docs/PROMPTS.md`:
+
+> "I can build any of these — pick one and I'll fill in the gaps:
+>
+> 1. **Business / sales pitch** — 10 slides, VC-ready
+> 2. **Executive update** — 5 slides, board-style, data-dense
+> 3. **Case study** — 6 slides, problem-solution-result
+> 4. **Training session** — 12 slides, beginner-friendly
+> 5. **Data insight** — 1 slide, single chart with takeaway
+> 6. **QBR / sales / all-hands / postmortem** — pick one
+> 7. **Other** — tell me the audience + topic"
+
+Each maps to a sample-filled template (`pptx new <template>`). After they pick, run discovery for the missing 7-input gaps (audience, theme/colors, slide count, backgrounds, logo, output).
+
+## Default data — what to do with sample-filled templates
+
+The 5 sample templates (`exec-update`, `case-study`, `training`, `data-insight`, `pitch-sample`) ship with **realistic placeholder content** — actual numbers, plausible client names, sensible bullet copy. This is intentional: user sees the shape immediately, then swaps content in place.
+
+When the user picks one of these, do **not** strip the sample content unless they ask. Two patterns:
+
+- **User has their own data**: ask them to paste it; replace the matching numbers/names in the markdown.
+- **User wants a starting point**: render the sample as-is, walk through what they'd swap. Faster than a blank skeleton.
+
+For unfilled gaps, use `{{TBD}}` — visible markers the user can spot before sharing.
+
 ## Reference for further detail
 
 - `SKILL.md` — quickstart + decision flow

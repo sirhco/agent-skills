@@ -132,11 +132,27 @@ python3 -m pip install python-pptx pillow
 
 Optional extras (`pip install -r requirements-extras.txt`): `pygments` (code highlighting), `cairosvg` (icon SVGs). LibreOffice optional, only for `pptx export --pdf`.
 
+## Default data templates
+
+Sample-filled templates with realistic placeholder content (not just skeletons). Use `pptx new <template>` to scaffold:
+
+| Template | Use case | Slides |
+|---|---|---|
+| `pitch-sample` | VC pitch (filled with realistic example) | 10 |
+| `exec-update` | Board / leadership readout | 5 |
+| `case-study` | Client ROI story | 6 |
+| `training` | Beginner training session | 12 |
+| `data-insight` | Single-chart insight slide | 1 |
+| `qbr` / `sales` / `pitch` / `allhands` / `postmortem` | Skeletons (placeholders only) | varies |
+
+See `docs/PROMPTS.md` for canned user prompts mapped to each template.
+
 ## More detail
 
 - `REFERENCE.md` — full slide-method API, theme color schema, markdown syntax, healthcare conventions, style rules, common pitfalls.
 - `README.md` — human-facing landing page.
 - `docs/AGENT-WORKFLOW.md` — full Claude-with-user playbook (read first if you're an agent).
+- `docs/PROMPTS.md` — canned user prompts by use case + tips.
 - `docs/CUSTOMIZATION.md` — recipes for "make it X" requests.
 - `docs/TUTORIAL.md` — 5-minute walkthrough (human-facing).
 - `docs/MARKDOWN.md` — every md slide kind with examples.
