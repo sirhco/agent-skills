@@ -93,5 +93,12 @@ Optional extras (`pip install -r requirements-extras.txt`): `pygments` (code hig
 
 ## More detail
 
-`REFERENCE.md` — full slide-method API, theme color schema, markdown syntax, healthcare conventions, style rules, common pitfalls.
-`agent-prompt.md` — model-agnostic prompt for LLMs without this skill.
+- `REFERENCE.md` — full slide-method API, theme color schema, markdown syntax, healthcare conventions, style rules, common pitfalls.
+- `README.md` — human-facing landing page.
+- `docs/TUTORIAL.md` — 5-minute walkthrough.
+- `docs/MARKDOWN.md` — every md slide kind with examples.
+- `docs/THEMES.md` — theme TOML schema, `extends`, `brand.toml`.
+- `docs/CLI.md` — every `pptx <cmd>` flag.
+- `docs/CONTRIBUTING.md` — add slide kind / theme / example.
+- `docs/TROUBLESHOOTING.md` — common errors + fixes.
+- `agent-prompt.md` — model-agnostic prompt for LLMs without this skill.
